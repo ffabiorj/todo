@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block container %}
+  <h1>Lista de Tarefas</h1>
+    
+  {% if messages %}
+    {% for message in messages  %}
+      <div class="alert alert-danger">
+        {{ message }}      
+      </div>
+    {% endfor %}
+  {% endif %}
+
+    {% if tarefas %}
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Tarefa</th>
+        <th>Descrição</th>
+        <th>Data Final</th>
+        <th>Prioridade</th>
+        <th>Categoria</th>
+        <th colspan="2" style="text-align:center">Açães</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in tarefas  %}
+      <tr>
+        <td>{{ t.nome }}</td>
+        <td>{{ t.descricao }}</td>
+        <td>{{ t.data_final }}</td>
+        <td >{{ t.get_prioridade_display }}</td>
+        <td>{{ t.categoria }}</td>
+        <td class="text-center"><a href="{% url 'update_task' t.id %}" class="btn btn-info btn-xs">Editar</a></td>
+        <td class="text-center"><a href="{% url 'delete_task' t.id %}" class="btn btn-danger btn-xs">Excluir</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="alert alert-info">Não há tarefas disponíveis!</div>
+  {% endif %}
+  <a href="{% url 'new_task' %}" class="btn btn-primary">Adicionar farefa</a>
+  
+{% endblock container %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block container %}
+<h1>Lista de Categorias</h1>
+    {% if messages %}
+        {% for message in messages  %}
+        <div class="alert alert-danger">
+          {{message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% if categories %}
+    
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Descrição</th>
+                <th colspan="2" style="text-align:center">Açães</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in categories %}
+              <tr>
+                  <td>{{ c.nome }}</td>
+                  <td>{{ c.descricao }}</td>
+                  <td class="text-center"><a href="{% url 'update_category' c.id %}" class="btn btn-info btn-xs">Editar</a></td>
+                  <td class="text-center"><a href="{% url 'delete_category' c.id %}" class="btn btn-info btn-xs">Excluir</a></td>
+        
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+    {% else %}
+    <div class="alert alert-warning"></div>
+    {% endif %}
+    <a href="{% url 'new_category'%}" class="btn btn-primary">Adicionar Categoria</a>
+{% endblock container %}

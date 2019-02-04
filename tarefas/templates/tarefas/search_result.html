@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block container %}
+<h1>Resultado da busca:</h1>
+{% if result %}
+  {% for r in result %}
+    <a href="{% url 'task_details' r.id %}"><h3>{{ r.nome }}</h3></a>
+  {% endfor %}
+{% else %}
+    <div class="alert alert-warning"><p>Nenhum resultado encontrado!</p></div>
+{% endif %}
+{% endblock container %}
